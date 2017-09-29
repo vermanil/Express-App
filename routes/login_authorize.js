@@ -36,8 +36,6 @@ router.post('/authorize', function (req, res, next) {
     }
    // console.log(req.headers);
    // console.log(req.headers.authorization);
-   // console.log(req.headers.authorization.split(' '));
-   //  console.log(req.headers.authorization.split(' ')[1]);
 });
 
 module.exports = router;

@@ -10,7 +10,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var router = _express2.default.Router();
 
-/* GET users listing. */
+//returns a signed JWT token based on given username and password
+
 router.post('/login', function (req, res, next) {
     if (typeof req.body.username != 'undefined' && typeof req.body.password != 'undefined') {
         var token = (0, _jsonwebtoken.sign)({ 'username': req.body.username, 'password': req.body.password }, 'anil');
@@ -21,6 +22,7 @@ router.post('/login', function (req, res, next) {
     }
 });
 
+// this is for verify the token
 router.post('/authorize', function (req, res, next) {
     if (req.headers && req.headers.authorization) {
         var token = req.headers.authorization;
@@ -33,8 +35,6 @@ router.post('/authorize', function (req, res, next) {
     }
     // console.log(req.headers);
     // console.log(req.headers.authorization);
-    // console.log(req.headers.authorization.split(' '));
-    //  console.log(req.headers.authorization.split(' ')[1]);
 });
 
 module.exports = router;

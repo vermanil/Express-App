@@ -32,6 +32,7 @@ app.use(function(req, res, next) {
   next(err);
 });
 
+global.baseDirectory = path.resolve(__dirname);
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
