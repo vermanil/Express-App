@@ -29,8 +29,6 @@ router.post('/patch', function (req, res, next) {
 });
 
 
-
-
 // Create thumbnail of image
 router.post('/thumbnail', function (req, res, next) {
       if( req.query.imageUrl != 'undefined' || req.query.imageUrl != '' )

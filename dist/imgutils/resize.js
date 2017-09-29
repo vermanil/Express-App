@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-var _jimp = require('jimp');
+var _jimp = require("jimp");
 
 var _jimp2 = _interopRequireDefault(_jimp);
 
@@ -9,16 +9,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.thumbnailSize = function (originalImagePath, thumbnailImageLocation, callback) {
     _jimp2.default.read(originalImagePath, function (error, image) {
         if (error) {
-            var err = new Error();
-            err.statusCode = 400;
-            err.message = 'Broken image found';
-            callback(err, null);
+            callback(new Error("Wrong Image Found"), null, null);
         } else {
             image.resize(50, 50).write(thumbnailImageLocation, function (err) {
                 if (err) {
-                    callback(err, null);
+                    callback(err, null, null);
                 }
-                callback(null, thumbnailImageLocation);
+                callback(null, thumbnailImageLocation, null);
             });
         }
     });
