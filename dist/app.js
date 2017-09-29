@@ -17,10 +17,10 @@ var _bodyParser = require('body-parser');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // var favicon = require('serve-favicon');
-var index = require('./routes/index');
+var endpoints = require('./routes/endpoints');
 // var cookieParser = require('cookie-parser');
 
-var users = require('./routes/users');
+var login_authorize = require('./routes/login_authorize');
 
 var app = (0, _express2.default)();
 
@@ -36,8 +36,8 @@ app.use((0, _bodyParser.urlencoded)({ extended: false }));
 // app.use(cookieParser());
 // app.use(express.static(join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
+app.use('/', login_authorize);
+app.use('/api', endpoints);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
