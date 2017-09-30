@@ -23,6 +23,7 @@ var jsonPatch = {
 describe("json-Patch", function () {
     it("it should return patch json if correct data given", function () {
         chai.request(host).post(patch).send(jsonPatch).set("Authorization", token).end(function (err, res) {
+                console.log(res)
                 res.should.have.status(200)
                 res.body.should.have.property("patchDocument");
                 done();

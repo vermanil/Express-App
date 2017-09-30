@@ -5,7 +5,17 @@
   "scripts": {
     "test": "cd dist && mocha test/*.js",
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files && mkdirp dist/img",
-    "start": "node dist/bin/www"
+    "start": "node dist/bin/www",
+    "lint": "standard --fix"
+  },
+  "standard": {
+    "ignore": [
+      "**/doc/",
+      "/public/",
+      "/test/",
+      "/views/",
+      "/dist/"
+    ]
   },
   "dependencies": {
     "body-parser": "~1.17.1",
@@ -23,7 +33,8 @@
     "mocha": "^3.5.3",
     "morgan": "~1.8.1",
     "request": "^2.83.0",
-    "serve-favicon": "~2.4.2"
+    "serve-favicon": "~2.4.2",
+    "standard": "^10.0.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

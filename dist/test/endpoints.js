@@ -29,11 +29,10 @@ var jsonPatch = {
 (0, _mocha.describe)("json-Patch", function () {
     (0, _mocha.it)("it should return patch json if correct data given", function () {
         _chai2.default.request(host).post(patch).send(jsonPatch).set("Authorization", token).end(function (err, res) {
-            if (err) next(err);else {
-                res.should.have.status(200);
-                res.body.should.have.property("patchDocument");
-                done();
-            }
+            console.log(res);
+            res.should.have.status(200);
+            res.body.should.have.property("patchDocument");
+            done();
         });
     });
 });

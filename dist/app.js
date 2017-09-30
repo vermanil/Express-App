@@ -29,13 +29,12 @@ app.set('views', _path2.default.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use((0, _morgan2.default)('dev'));
 app.use((0, _bodyParser.json)());
 app.use((0, _bodyParser.urlencoded)({ extended: false }));
 // app.use(cookieParser());
 // app.use(express.static(join(__dirname, 'public')));
-
 
 app.use('/', login_authorize);
 app.use('/api', [endpoints]);
