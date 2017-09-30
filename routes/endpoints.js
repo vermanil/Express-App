@@ -7,8 +7,8 @@ import { resolve, join } from 'path';
 import { readFileSync, createWriteStream, writeHead } from 'fs'
 import { thumbnailSize } from '../imgutils/resize.js';
 
-// Api to apply json patch to json object
 
+// Api to apply json patch to json object
 router.post('/patch', function (req, res, next) {
   if(typeof req.body.jsonObject == 'undefined') {
     res.status(400);
@@ -41,12 +41,12 @@ router.post('/thumbnail', function (req, res, next) {
             else{
                 var contentType = response.headers['content-type'].substring(0,5);
                 var imgFormat = response.headers['content-type'].substring(6);
+                var date = response.headers['date'].split(" ").join("_");
                 // console.log(contentType);
                 if(response.statusCode === 200 && contentType === 'image')
                 {
                     if(response.headers['content-length'] <= 10 * 1024 * 1024)
                     {
-                        var date = response.headers['date'].split(" ").join("_");
                         const imgLocation = resolve(join(baseDirectory, 'img')) + '/original_' + date + '.' + imgFormat;
                         const thumbnailLocation = resolve(join(baseDirectory, 'img')) + '/thumbnail_' + date + '.' + imgFormat;
                         var stream = request.get(imageUrl).pipe(createWriteStream(imgLocation));

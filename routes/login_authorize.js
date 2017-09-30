@@ -34,6 +34,10 @@ router.post('/authorize', function (req, res, next) {
             res.json({'username': decoded.username, 'password': decoded.password});
         })
     }
+    else{
+        res.status(500);
+        res.send("Headers not found");
+    }
    // console.log(req.headers);
    // console.log(req.headers.authorization);
 });
