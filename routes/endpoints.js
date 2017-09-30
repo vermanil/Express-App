@@ -1,32 +1,61 @@
 import express from 'express';
 var router = express.Router();
-
 import { apply_patch } from 'jsonpatch';
 import request from 'request';
 import { resolve, join } from 'path';
 import { readFileSync, createWriteStream, writeHead } from 'fs'
 import { thumbnailSize } from '../imgutils/resize.js';
+import { verify } from "jsonwebtoken"
+
+//It is using to validate the api
+router.use('/', function(req, res, next) {
+    // decode token
+    var token = req.headers.authorization;
+    if (token) {
+        // verifies secret and checks exp
+        verify(token, "anil", function(err, decoded) {
+            if (err) {
+                return res.status(403).send({message:'Not authenticated'});
+            } else {
+                // if everything is good, save to request for use in other routes
+                req.decoded = decoded;
+                next();
+            }
+        });
+
+    } else {
+        return res.status(403).send({
+            success: false,
+            message: 'No token provided.'
+        });
+    }
+});
+
 
 
 // Api to apply json patch to json object
 router.post('/patch', function (req, res, next) {
   if(typeof req.body.jsonObject == 'undefined') {
-    res.status(400);
-    res.send("missing jsonObject");
+      let err = new Error()
+    err.statusCode = 400;
+    err.message = "missing jsonObject";
+      next(err);
   }
   else if (typeof req.body.Patch == 'undefined') {
-    res.status(400);
-    res.send("Missing json Patch")
+      let err = new Error()
+      err.statusCode = 400;
+      err.message = "missing patch operations";
+      next(err);
   }
   else {
-    // console.log(req.body.jsonObject);
-    // console.log(req.body.Patch);
     var jsonObject = req.body.jsonObject;
     var operation = req.body.Patch;
     var patchDocument = apply_patch(jsonObject, operation);
-    res.json(patchDocument);
+      res.statusCode = 200
+      res.json(patchDocument);
   }
 });
+
 
 
 // Create thumbnail of image

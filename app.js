@@ -22,8 +22,9 @@ app.use(urlencoded({ extended: false }));
 // app.use(cookieParser());
 // app.use(express.static(join(__dirname, 'public')));
 
+
 app.use('/', login_authorize);
-app.use('/api', endpoints);
+app.use('/api', [endpoints]);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -31,6 +32,8 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+
 
 global.baseDirectory = path.resolve(__dirname);
 // error handler

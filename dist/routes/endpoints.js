@@ -16,24 +16,53 @@ var _fs = require('fs');
 
 var _resize = require('../imgutils/resize.js');
 
+var _jsonwebtoken = require('jsonwebtoken');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = _express2.default.Router();
 
+
+//It is using to validate the api
+router.use('/', function (req, res, next) {
+    // decode token
+    var token = req.headers.authorization;
+    if (token) {
+        // verifies secret and checks exp
+        (0, _jsonwebtoken.verify)(token, "anil", function (err, decoded) {
+            if (err) {
+                return res.status(403).send({ message: 'Not authenticated' });
+            } else {
+                // if everything is good, save to request for use in other routes
+                req.decoded = decoded;
+                next();
+            }
+        });
+    } else {
+        return res.status(403).send({
+            success: false,
+            message: 'No token provided.'
+        });
+    }
+});
+
 // Api to apply json patch to json object
 router.post('/patch', function (req, res, next) {
     if (typeof req.body.jsonObject == 'undefined') {
-        res.status(400);
-        res.send("missing jsonObject");
+        var err = new Error();
+        err.statusCode = 400;
+        err.message = "missing jsonObject";
+        next(err);
     } else if (typeof req.body.Patch == 'undefined') {
-        res.status(400);
-        res.send("Missing json Patch");
+        var _err = new Error();
+        _err.statusCode = 400;
+        _err.message = "missing patch operations";
+        next(_err);
     } else {
-        // console.log(req.body.jsonObject);
-        // console.log(req.body.Patch);
         var jsonObject = req.body.jsonObject;
         var operation = req.body.Patch;
         var patchDocument = (0, _jsonpatch.apply_patch)(jsonObject, operation);
+        res.statusCode = 200;
         res.json(patchDocument);
     }
 });
