@@ -12,14 +12,13 @@ var _morgan = require('morgan');
 
 var _morgan2 = _interopRequireDefault(_morgan);
 
+var _fs = require('fs');
+
 var _bodyParser = require('body-parser');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// var favicon = require('serve-favicon');
 var endpoints = require('./routes/endpoints');
-// var cookieParser = require('cookie-parser');
-
 var login_authorize = require('./routes/login_authorize');
 
 var app = (0, _express2.default)();
@@ -28,6 +27,9 @@ var app = (0, _express2.default)();
 app.set('views', _path2.default.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+var access = _path2.default.join(__dirname, "access.log");
+var accessLogStream = (0, _fs.createWriteStream)(access, { flags: 'a' });
+app.use((0, _morgan2.default)('combined', { stream: accessLogStream }));
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use((0, _morgan2.default)('dev'));

@@ -6,10 +6,6 @@ var _express2 = _interopRequireDefault(_express);
 
 var _jsonpatch = require('jsonpatch');
 
-var _request = require('request');
-
-var _request2 = _interopRequireDefault(_request);
-
 var _path = require('path');
 
 var _fs = require('fs');
@@ -18,10 +14,13 @@ var _resize = require('../imgutils/resize.js');
 
 var _jsonwebtoken = require('jsonwebtoken');
 
+var _request = require('request');
+
+var _request2 = _interopRequireDefault(_request);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = _express2.default.Router();
-
 
 /**
  * It authenticate json_patching and thumbnail_generation api
@@ -31,7 +30,9 @@ var router = _express2.default.Router();
  * @param {function} next
  */
 
-// It is using to validate the api
+//###################################################################################
+//                           API VALIDATIONS
+//###################################################################################
 router.use('/', function (req, res, next) {
   // decode token
   var token = req.headers.authorization;
@@ -54,6 +55,12 @@ router.use('/', function (req, res, next) {
   }
 });
 
+//################################################################################
+
+//                          API FOR JSON_PATCHING
+
+//################################################################################
+
 /**
  * Api to apply json patch on json object and Update json
  * @name Json-Patching
@@ -64,24 +71,30 @@ router.use('/', function (req, res, next) {
 
 router.post('/patch', function (req, res, next) {
   if (typeof req.body.jsonObject === 'undefined') {
-    var err = new Error();
-    err.statusCode = 400;
-    err.message = 'missing jsonObject';
-    next(err);
+    res.statusCode = 400;
+    res.json({ "message": 'missing jsonObject' });
   } else if (typeof req.body.Patch === 'undefined') {
-    var _err = new Error();
-    _err.statusCode = 400;
-    _err.message = 'missing patch operations';
-    next(_err);
+    res.statusCode = 400;
+    res.json({ "message": 'missing patch operations' });
   } else {
     var jsonObject = req.body.jsonObject;
     var operation = req.body.Patch;
-    var patchDocument = (0, _jsonpatch.apply_patch)(jsonObject, operation);
-    res.statusCode = 200;
-    res.json(patchDocument);
+    try {
+      var patchDocument = (0, _jsonpatch.apply_patch)(jsonObject, operation);
+      res.statusCode = 200;
+      res.json(patchDocument);
+    } catch (e) {
+      res.statusCode = 400;
+      res.json({ "message": "wrong patch operations" });
+    }
   }
 });
 
+//####################################################################################
+
+//                    API FOR THUMBNAIL_GENERATIONS
+
+//####################################################################################
 /**
  * Create thumbnail of image
  * @name Thumbnail-Generation

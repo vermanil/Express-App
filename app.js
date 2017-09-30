@@ -1,8 +1,7 @@
 import express from 'express'
 import path from 'path'
-// var favicon = require('serve-favicon');
 import logger from 'morgan'
-// var cookieParser = require('cookie-parser');
+import { createWriteStream } from 'fs'
 import { json, urlencoded } from 'body-parser'
 
 var endpoints = require('./routes/endpoints')
@@ -14,6 +13,9 @@ var app = express()
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'jade')
 
+var access = path.join(__dirname, "access.log")
+var accessLogStream = createWriteStream(access, {flags: 'a'})
+app.use(logger('combined', {stream: accessLogStream}))
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'))

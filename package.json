@@ -6,11 +6,11 @@
     "test": "cd dist && mocha test/*.js",
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files && mkdirp dist/img",
     "start": "node dist/bin/www",
-    "lint": "standard --fix"
+    "lint": "standard "
   },
   "standard": {
     "ignore": [
-      "**/doc/",
+      "**/docs/",
       "/public/",
       "/test/",
       "/views/",
