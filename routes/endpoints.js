@@ -67,7 +67,7 @@ router.post('/patch', function (req, res, next) {
     try {
       var patchDocument = apply_patch(jsonObject, operation)
       res.statusCode = 200
-      res.json(patchDocument)
+      res.json({patch:patchDocument})
     }
     catch(e){
       res.statusCode = 400
@@ -90,12 +90,13 @@ router.post('/patch', function (req, res, next) {
  */
 //
 router.post('/thumbnail', function (req, res, next) {
-  if (req.query.imageUrl !== 'undefined' || req.query.imageUrl !== '') {
+  if (typeof req.query.imageUrl !== 'undefined') {
     var imageUrl = req.query.imageUrl
-    request.get(imageUrl, function (err, response, body) {
+    request.head(imageUrl, function (err, response, body) {
       if (err) {
         next(err)
-      } else {
+      }
+      else {
         var contentType = response.headers['content-type'].substring(0, 5)
         var imgFormat = response.headers['content-type'].substring(6)
         var date = response.headers['date'].split(' ').join('_')
@@ -116,21 +117,18 @@ router.post('/thumbnail', function (req, res, next) {
               })
             })
           } else {
-            var error = new Error('Image exceeds than 10 MB')
-            error.statusCode(400)
-            next(error)
+            res.status(400)
+            res.json({message: "image exceeds than 10 MB"})
           }
         } else {
-          var e = new Error('Image Not Found')
-          e.statusCode(400)
-          next(e)
+          res.status(400)
+          res.json({message: "image not found"})
         }
       }
     })
   } else {
-    var er = new Error('Url Not Found')
-    er.statusCode(400)
-    next(er)
+    res.status(400)
+    res.json({message: "url not found"})
   }
 })
 

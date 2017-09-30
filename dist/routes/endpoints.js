@@ -82,7 +82,7 @@ router.post('/patch', function (req, res, next) {
     try {
       var patchDocument = (0, _jsonpatch.apply_patch)(jsonObject, operation);
       res.statusCode = 200;
-      res.json(patchDocument);
+      res.json({ patch: patchDocument });
     } catch (e) {
       res.statusCode = 400;
       res.json({ "message": "wrong patch operations" });
@@ -104,9 +104,9 @@ router.post('/patch', function (req, res, next) {
  */
 //
 router.post('/thumbnail', function (req, res, next) {
-  if (req.query.imageUrl !== 'undefined' || req.query.imageUrl !== '') {
+  if (typeof req.query.imageUrl !== 'undefined') {
     var imageUrl = req.query.imageUrl;
-    _request2.default.get(imageUrl, function (err, response, body) {
+    _request2.default.head(imageUrl, function (err, response, body) {
       if (err) {
         next(err);
       } else {
@@ -130,21 +130,18 @@ router.post('/thumbnail', function (req, res, next) {
               });
             });
           } else {
-            var error = new Error('Image exceeds than 10 MB');
-            error.statusCode(400);
-            next(error);
+            res.status(400);
+            res.json({ message: "image exceeds than 10 MB" });
           }
         } else {
-          var e = new Error('Image Not Found');
-          e.statusCode(400);
-          next(e);
+          res.status(400);
+          res.json({ message: "image not found" });
         }
       }
     });
   } else {
-    var er = new Error('Url Not Found');
-    er.statusCode(400);
-    next(er);
+    res.status(400);
+    res.json({ message: "url not found" });
   }
 });
 

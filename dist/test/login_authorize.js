@@ -23,7 +23,7 @@ _chai2.default.should();
 
 var login = "/login";
 (0, _mocha.describe)("User Login", function () {
-    (0, _mocha.it)("It should return the token of username and password", function () {
+    (0, _mocha.it)("It should return the token of username and password", function (done) {
         _chai2.default.request(_app2.default).post(login).send({ "username": "me", "password": "123" }).end(function (err, res) {
             if (err) {
                 console.log("hello");
@@ -35,22 +35,18 @@ var login = "/login";
             }
         });
     });
-    (0, _mocha.it)("It should return error if username property does not exist", function () {
+    (0, _mocha.it)("It should return error if username property does not exist", function (done) {
         _chai2.default.request(_app2.default).post(login).send({ "password": "123" }).end(function (err, res) {
-            if (err) done(err);else {
-                res.should.have.status(400);
-                res.body.should.have.property('message');
-                done();
-            }
+            res.should.have.status(400);
+            res.body.should.have.property('message');
+            done();
         });
     });
-    (0, _mocha.it)("it should return error if password property does not exists", function () {
+    (0, _mocha.it)("it should return error if password property does not exists", function (done) {
         _chai2.default.request(_app2.default).post(login).send({ "username": "me" }).end(function (err, res) {
-            if (err) done(err);else {
-                res.should.have.status(400);
-                res.body.should.have.property('message');
-                done();
-            }
+            res.should.have.status(400);
+            res.body.should.have.property('message');
+            done();
         });
     });
 });

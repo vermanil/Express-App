@@ -9,7 +9,7 @@ chai.should();
 
 var login = "/login"
 describe("User Login", function () {
-   it("It should return the token of username and password", function () {
+   it("It should return the token of username and password", function (done) {
        chai.request(server).post(login).send({"username":"me", "password":"123"}).end( function (err, res) {
            if(err) {
                console.log("hello")
@@ -22,26 +22,18 @@ describe("User Login", function () {
            }
        });
    });
-    it("It should return error if username property does not exist", function () {
+    it("It should return error if username property does not exist", function (done) {
         chai.request(server).post(login).send({"password":"123"}).end( function (err, res) {
-            if(err)
-                done(err)
-            else {
-                res.should.have.status(400);
-                res.body.should.have.property('message');
-                done()
-            }
+            res.should.have.status(400);
+            res.body.should.have.property('message');
+            done()
         });
     });
-    it("it should return error if password property does not exists", function () {
-        chai.request(server).post(login).send({"username":"me"}).end(function (err, res) {
-            if(err)
-                done(err)
-            else {
-                res.should.have.status(400)
-                res.body.should.have.property('message')
-                done()
-            }
+    it("it should return error if password property does not exists", function (done) {
+        chai.request(server).post(login).send({"username":"me"}).end( function (err, res) {
+            res.should.have.status(400)
+            res.body.should.have.property('message')
+            done()
         })
     })
 });

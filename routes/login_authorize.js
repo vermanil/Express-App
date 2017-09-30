@@ -13,16 +13,14 @@ import { sign, verify } from 'jsonwebtoken'
  */
 
 router.post('/login', function (req, res, next) {
-  if (typeof req.body.username === 'undefined') {
-    res.status(400)
-    res.send('Missing username fields')
-  } else if (typeof req.body.password === 'undefined') {
-    res.status(400)
-    res.send('Missing password fields')
-  } else {
+  if (typeof req.body.username !== 'undefined' && typeof req.body.password != 'undefined') {
     var token = sign({ 'username': req.body.username, 'password': req.body.password }, 'anil')
     res.status(200)
     res.json({token: token})
+  }
+  else {
+    res.status(400)
+    res.json({message: "missing username or password"})
   }
 })
 
