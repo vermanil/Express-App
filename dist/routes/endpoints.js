@@ -21,7 +21,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var router = _express2.default.Router();
 
 // Api to apply json patch to json object
-
 router.post('/patch', function (req, res, next) {
     if (typeof req.body.jsonObject == 'undefined') {
         res.status(400);
@@ -49,10 +48,10 @@ router.post('/thumbnail', function (req, res, next) {
             } else {
                 var contentType = response.headers['content-type'].substring(0, 5);
                 var imgFormat = response.headers['content-type'].substring(6);
+                var date = response.headers['date'].split(" ").join("_");
                 // console.log(contentType);
                 if (response.statusCode === 200 && contentType === 'image') {
                     if (response.headers['content-length'] <= 10 * 1024 * 1024) {
-                        var date = response.headers['date'].split(" ").join("_");
                         var imgLocation = (0, _path.resolve)((0, _path.join)(baseDirectory, 'img')) + '/original_' + date + '.' + imgFormat;
                         var thumbnailLocation = (0, _path.resolve)((0, _path.join)(baseDirectory, 'img')) + '/thumbnail_' + date + '.' + imgFormat;
                         var stream = _request2.default.get(imageUrl).pipe((0, _fs.createWriteStream)(imgLocation));

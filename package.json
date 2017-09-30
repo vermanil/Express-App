@@ -3,12 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cd dist && mocha test/*.js",
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files && mkdirp dist/img",
     "start": "node dist/bin/www"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",
