@@ -16,6 +16,7 @@
     "express": "~4.15.2",
     "jade": "~1.11.0",
     "jimp": "^0.2.28",
+    "jsdoc": "^3.5.5",
     "jsonpatch": "^3.0.1",
     "jsonwebtoken": "^8.0.1",
     "mkdirp": "^0.5.1",
