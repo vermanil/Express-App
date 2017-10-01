@@ -130,6 +130,16 @@ describe('Thumbnail Generations', function () {
                 done()
             })
     })
+    it('should return error if image size exceeds than 10 MB', function(done) {
+            let urlImage = "https://upload.wikimedia.org/wikipedia/commons/9/93/Canon_EF_16-35mm_f4L_IS_USM_collage.jpg"
+            chai.request(server)
+                .post(url + urlImage)
+                .set('Authorization', token)
+                .end( function(err, res) {
+                    res.should.have.status(400)
+                    done()
+                })
+        })
     it('should return error if image url is not provided', function(done) {
         chai.request(server)
             .post('/api/thumbnail')

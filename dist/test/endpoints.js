@@ -122,6 +122,13 @@ var url = '/api/thumbnail?imageUrl=';
             done();
         });
     });
+    (0, _mocha.it)('should return error if image size exceeds than 10 MB', function (done) {
+        var urlImage = "https://upload.wikimedia.org/wikipedia/commons/9/93/Canon_EF_16-35mm_f4L_IS_USM_collage.jpg";
+        _chai2.default.request(_app2.default).post(url + urlImage).set('Authorization', token).end(function (err, res) {
+            res.should.have.status(400);
+            done();
+        });
+    });
     (0, _mocha.it)('should return error if image url is not provided', function (done) {
         _chai2.default.request(_app2.default).post('/api/thumbnail').set('Authorization', token).end(function (err, res) {
             // res.should.have.property('message')

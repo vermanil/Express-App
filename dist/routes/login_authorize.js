@@ -20,13 +20,13 @@ var router = _express2.default.Router();
  */
 
 router.post('/login', function (req, res, next) {
-  if (typeof req.body.username !== 'undefined' && typeof req.body.password != 'undefined') {
+  if (typeof req.body.username !== 'undefined' && typeof req.body.password !== 'undefined') {
     var token = (0, _jsonwebtoken.sign)({ 'username': req.body.username, 'password': req.body.password }, 'anil');
     res.status(200);
     res.json({ token: token });
   } else {
     res.status(400);
-    res.json({ message: "missing username or password" });
+    res.json({ message: 'missing username or password' });
   }
 });
 

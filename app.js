@@ -12,17 +12,12 @@ var app = express()
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'jade')
-
-var access = path.join(__dirname, "access.log")
+var access = path.join(__dirname, 'access.log')
 var accessLogStream = createWriteStream(access, {flags: 'a'})
 app.use(logger('combined', {stream: accessLogStream}))
-// uncomment after placing your favicon in /public
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'))
 app.use(json())
 app.use(urlencoded({ extended: false }))
-// app.use(cookieParser());
-// app.use(express.static(join(__dirname, 'public')));
 
 app.use('/', login_authorize)
 app.use('/api', [endpoints])
@@ -37,11 +32,8 @@ app.use(function (req, res, next) {
 global.baseDirectory = path.resolve(__dirname)
 // error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
-
-  // render the error page
   res.status(err.status || 500)
   res.render('error')
 })

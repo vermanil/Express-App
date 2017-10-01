@@ -9,7 +9,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.thumbnailSize = function (originalImagePath, thumbnailImageLocation, callback) {
   _jimp2.default.read(originalImagePath, function (error, image) {
     if (error) {
-      callback(new Error('Wrong Image Found'), null, null);
+      callback(new Error('Image has broken'), null, null);
     } else {
       image.resize(50, 50).write(thumbnailImageLocation, function (err) {
         if (err) {

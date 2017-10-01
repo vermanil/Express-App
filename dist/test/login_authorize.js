@@ -22,17 +22,22 @@ _chai2.default.use(_chaiHttp2.default);
 _chai2.default.should();
 
 var login = "/login";
+
+(0, _mocha.describe)('Invalid routes', function () {
+    (0, _mocha.it)('should return error', function (done) {
+        _chai2.default.request(_app2.default).post('/').end(function (err, res) {
+            res.should.have.status(404);
+            done();
+        });
+    });
+});
+
 (0, _mocha.describe)("User Login", function () {
     (0, _mocha.it)("It should return the token of username and password", function (done) {
         _chai2.default.request(_app2.default).post(login).send({ "username": "me", "password": "123" }).end(function (err, res) {
-            if (err) {
-                console.log("hello");
-                done(err);
-            } else {
-                res.should.have.status(200);
-                res.body.should.have.property('token');
-                done();
-            }
+            res.should.have.status(200);
+            res.body.should.have.property('token');
+            done();
         });
     });
     (0, _mocha.it)("It should return error if username property does not exist", function (done) {
