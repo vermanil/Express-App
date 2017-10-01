@@ -5,8 +5,8 @@
 + Image Thumbnail Generation
 
 check out more
-* [Docs](https://vermanil.github.io/Express-App/docs/)
-* [Coverage Report](https://vermanil.github.io/Express-App/coverage/lcov-report/)
+* [Docs](https://vermanil.github.io/express-app/docs/)
+* [Coverage Report](https://vermanil.github.io/express-app/coverage/lcov-report/)
 
 ## Installation
 
@@ -67,6 +67,6 @@ curl -H "Authorization: JWT <token>" -H "Content-Type: application/json" -X POST
 ```
 ### Thumbnail_generations
 ```
-curl -H "Authorization: JWT <token>" -H "Content-Type: application/json" -X POST http://localhost:3000/api/thumbnail?imageUrl=http://media.istockphoto.com/photos/all-of-me-loves-all-of-you-picture-id619253922
+curl -H "Authorization: JWT <token>" -H "Content-Type: application/json" -X POST http://localhost:3000/api/thumbnail?imageUrl=https://www.sitebuilderreport.com/assets/facebook-stock-up-446fff24fb11820517c520c4a5a4c032.jpg
 
 ```

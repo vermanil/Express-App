@@ -7,7 +7,7 @@ chai.use(chaiHttp)
 // i will use "should" style assertions
 chai.should();
 
-var login = "/login"
+let login = "/login"
 
 describe('Invalid routes', function() {
     it('should return error', function(done) {

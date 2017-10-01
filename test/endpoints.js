@@ -9,10 +9,10 @@ chai.should();
 //                              TEST CASE FOR JSAON-PATCHING
 //##############################################################################################
 
-var patch = "/api/patch"
-var token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFuaWwiLCJwYXNzd29yZCI6Imhkc2ZkcyIsImlhdCI6MTUwNjc5MTYzMn0.x1oCejqbDVv_xnmqKTdMoMNMzKyV_qqWpjekCqsgLtM"
+let patch = "/api/patch"
+let token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFuaWwiLCJwYXNzd29yZCI6Imhkc2ZkcyIsImlhdCI6MTUwNjc5MTYzMn0.x1oCejqbDVv_xnmqKTdMoMNMzKyV_qqWpjekCqsgLtM"
 let invalidToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFubWwiLCJwYXNzd29yZCI6Imhkc2ZkcyIsImlhdCI6MTUwNjc5MTYzMn0.x1oCejqbDVv_xnmqKTdMoMNMzKyV_qqWpjekCqsgLtM"
-var jsonPatch = {
+let jsonPatch = {
     "jsonObject":{
         "baz": "qux",
         "foo": "bar"
@@ -87,12 +87,12 @@ describe("json-Patch", function () {
 
 //############################################################################################################
 
-let imageUrl='http://media.istockphoto.com/photos/all-of-me-loves-all-of-you-picture-id619253922'
+let imageUrl='https://www.sitebuilderreport.com/assets/facebook-stock-up-446fff24fb11820517c520c4a5a4c032.jpg'
 let notImageUrl='https://youtube.com'
 let url = '/api/thumbnail?imageUrl='
 
 describe('Thumbnail Generations', function () {
-    this.timeout(5000)
+    this.timeout(20000)
     it('should return thumbnail image if image url is correct', function(done) {
         chai.request(server)
             .post(url + imageUrl)

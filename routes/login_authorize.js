@@ -1,5 +1,5 @@
 import express from 'express'
-var router = express.Router()
+let router = express.Router()
 
 import { sign, verify } from 'jsonwebtoken'
 
@@ -14,7 +14,7 @@ import { sign, verify } from 'jsonwebtoken'
 
 router.post('/login', function (req, res, next) {
   if (typeof req.body.username !== 'undefined' && typeof req.body.password !== 'undefined') {
-    var token = sign({ 'username': req.body.username, 'password': req.body.password }, 'anil')
+    let token = sign({ 'username': req.body.username, 'password': req.body.password }, 'anil')
     res.status(200)
     res.json({token: token})
   } else {
@@ -33,7 +33,7 @@ router.post('/login', function (req, res, next) {
 //
 router.post('/authorize', function (req, res, next) {
   if (req.headers && req.headers.authorization) {
-    var token = req.headers.authorization
+    let token = req.headers.authorization
     verify(token, 'anil', function (err, decoded) {
       if (err) {
         res.status(500)

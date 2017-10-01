@@ -5,7 +5,7 @@ import { readFileSync, createWriteStream } from 'fs'
 import { thumbnailSize } from '../imgutils/resize.js'
 import { verify } from 'jsonwebtoken'
 import request from 'request'
-var router = express.Router()
+let router = express.Router()
 
 /**
  * It authenticate json_patching and thumbnail_generation api
@@ -20,7 +20,7 @@ var router = express.Router()
 // ###################################################################################
 router.use('/', function (req, res, next) {
     // decode token
-  var token = req.headers.authorization
+  let token = req.headers.authorization
   if (token) {
         // verifies secret and checks exp
     verify(token, 'anil', function (err, decoded) {
@@ -62,10 +62,10 @@ router.post('/patch', function (req, res, next) {
     res.statusCode = 400
     res.json({'message': 'missing patch operations'})
   } else {
-    var jsonObject = req.body.jsonObject
-    var operation = req.body.Patch
+    let jsonObject = req.body.jsonObject
+    let operation = req.body.Patch
     try {
-      var patchDocument = apply_patch(jsonObject, operation)
+      let patchDocument = apply_patch(jsonObject, operation)
       res.statusCode = 200
       res.json({patch: patchDocument})
     } catch (e) {
@@ -90,20 +90,20 @@ router.post('/patch', function (req, res, next) {
 //
 router.post('/thumbnail', function (req, res, next) {
   if (typeof req.query.imageUrl !== 'undefined') {
-    var imageUrl = req.query.imageUrl
+    let imageUrl = req.query.imageUrl
     request.head(imageUrl, function (err, response, body) {
       if (err) {
         next(err)
       } else {
-        var contentType = response.headers['content-type'].substring(0, 5)
-        var imgFormat = response.headers['content-type'].substring(6)
-        var date = response.headers['date'].split(' ').join('_')
-                // console.log(contentType);
+        let contentType = response.headers['content-type'].substring(0, 5)
+        let imgFormat = response.headers['content-type'].substring(6)
+        let date = response.headers['date'].split(' ').join('_')
+                console.log(contentType);
         if (response.statusCode === 200 && contentType === 'image') {
           if (response.headers['content-length'] <= 10 * 1024 * 1024) {
             const originalLocation = resolve(join(baseDirectory, 'img')) + '/original_' + date + '.' + imgFormat
             const thumbnailLocation = resolve(join(baseDirectory, 'img')) + '/thumbnail_' + date + '.' + imgFormat
-            var stream = request.get(imageUrl).pipe(createWriteStream(originalLocation))
+            let stream = request.get(imageUrl).pipe(createWriteStream(originalLocation))
             stream.on('finish', () => {
               thumbnailSize(originalLocation, thumbnailLocation, (err, out) => {
                 if (err) {

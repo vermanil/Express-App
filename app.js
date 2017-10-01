@@ -4,16 +4,16 @@ import logger from 'morgan'
 import { createWriteStream } from 'fs'
 import { json, urlencoded } from 'body-parser'
 
-var endpoints = require('./routes/endpoints')
-var login_authorize = require('./routes/login_authorize')
+let endpoints = require('./routes/endpoints')
+let login_authorize = require('./routes/login_authorize')
 
-var app = express()
+let app = express()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'jade')
-var access = path.join(__dirname, 'access.log')
-var accessLogStream = createWriteStream(access, {flags: 'a'})
+let access = path.join(__dirname, 'access.log')
+let accessLogStream = createWriteStream(access, {flags: 'a'})
 app.use(logger('combined', {stream: accessLogStream}))
 app.use(logger('dev'))
 app.use(json())
@@ -24,7 +24,7 @@ app.use('/api', [endpoints])
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  var err = new Error('Not Found')
+  let err = new Error('Not Found')
   err.status = 404
   next(err)
 })

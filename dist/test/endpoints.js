@@ -90,12 +90,12 @@ var jsonPatch = {
 
 //############################################################################################################
 
-var imageUrl = 'http://media.istockphoto.com/photos/all-of-me-loves-all-of-you-picture-id619253922';
+var imageUrl = 'https://www.sitebuilderreport.com/assets/facebook-stock-up-446fff24fb11820517c520c4a5a4c032.jpg';
 var notImageUrl = 'https://youtube.com';
 var url = '/api/thumbnail?imageUrl=';
 
 (0, _mocha.describe)('Thumbnail Generations', function () {
-    this.timeout(5000);
+    this.timeout(20000);
     (0, _mocha.it)('should return thumbnail image if image url is correct', function (done) {
         _chai2.default.request(_app2.default).post(url + imageUrl).set('Authorization', token).end(function (err, res) {
             res.should.have.status(200);
