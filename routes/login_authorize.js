@@ -12,7 +12,7 @@ import { sign, verify } from 'jsonwebtoken'
  * @return {json} signed JWT token, {token: JWT_TOKEN}
  */
 
-router.post('/login', function (req, res, next) {
+router.post('/login', (req, res, next) => {
   if (typeof req.body.username !== 'undefined' && typeof req.body.password !== 'undefined') {
     let token = sign({ 'username': req.body.username, 'password': req.body.password }, 'anil')
     res.status(200)
@@ -31,21 +31,21 @@ router.post('/login', function (req, res, next) {
  * @param {function} next
  */
 //
-router.post('/authorize', function (req, res, next) {
+router.post('/authorize', (req, res, next) => {
   if (req.headers && req.headers.authorization) {
     let token = req.headers.authorization
     verify(token, 'anil', function (err, decoded) {
       if (err) {
-        res.status(500)
-        res.send('Invalid signature')
+        res.status(400)
+        res.json({'message': 'Invalid signature'})
       } else {
         res.status(200)
         res.json({'username': decoded.username, 'password': decoded.password})
       }
     })
   } else {
-    res.status(500)
-    res.send('Headers not found')
+    res.status(400)
+    res.json({'message': 'Headers not found'})
   }
    // console.log(req.headers);
    // console.log(req.headers.authorization);

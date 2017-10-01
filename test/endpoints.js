@@ -1,12 +1,12 @@
-import { describe, it } from 'mocha'
 import chai from 'chai'
 import chaiHttp from 'chai-http'
+import { describe, it } from 'mocha'
 import server from '../app.js'
+let should = chai.should();
 chai.use(chaiHttp);
-chai.should();
 
 //##############################################################################################
-//                              TEST CASE FOR JSAON-PATCHING
+//                              TEST CASE FOR JSON-PATCHING
 //##############################################################################################
 
 let patch = "/api/patch"
@@ -24,7 +24,7 @@ let jsonPatch = {
     ]
 }
 
-describe("json-Patch", function () {
+describe('json-Patch', function () {
     it("it should return patched json if correct data given", function (done) {
         chai.request(server).post(patch).send(jsonPatch).set("Authorization", token).end( function (err, res) {
             res.should.have.status(200)

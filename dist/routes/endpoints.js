@@ -113,7 +113,6 @@ router.post('/thumbnail', function (req, res, next) {
         var contentType = response.headers['content-type'].substring(0, 5);
         var imgFormat = response.headers['content-type'].substring(6);
         var date = response.headers['date'].split(' ').join('_');
-        console.log(contentType);
         if (response.statusCode === 200 && contentType === 'image') {
           if (response.headers['content-length'] <= 10 * 1024 * 1024) {
             var originalLocation = (0, _path.resolve)((0, _path.join)(baseDirectory, 'img')) + '/original_' + date + '.' + imgFormat;

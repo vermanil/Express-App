@@ -18,7 +18,7 @@ let router = express.Router()
 // ###################################################################################
 //                           API VALIDATIONS
 // ###################################################################################
-router.use('/', function (req, res, next) {
+router.use('/', (req, res, next) => {
     // decode token
   let token = req.headers.authorization
   if (token) {
@@ -54,7 +54,7 @@ router.use('/', function (req, res, next) {
  * @param {function} next
  */
 
-router.post('/patch', function (req, res, next) {
+router.post('/patch', (req, res, next) => {
   if (typeof req.body.jsonObject === 'undefined') {
     res.statusCode = 400
     res.json({'message': 'missing jsonObject'})
@@ -88,7 +88,7 @@ router.post('/patch', function (req, res, next) {
  * @param {function} next
  */
 //
-router.post('/thumbnail', function (req, res, next) {
+router.post('/thumbnail', (req, res, next) => {
   if (typeof req.query.imageUrl !== 'undefined') {
     let imageUrl = req.query.imageUrl
     request.head(imageUrl, function (err, response, body) {
@@ -98,7 +98,6 @@ router.post('/thumbnail', function (req, res, next) {
         let contentType = response.headers['content-type'].substring(0, 5)
         let imgFormat = response.headers['content-type'].substring(6)
         let date = response.headers['date'].split(' ').join('_')
-                console.log(contentType);
         if (response.statusCode === 200 && contentType === 'image') {
           if (response.headers['content-length'] <= 10 * 1024 * 1024) {
             const originalLocation = resolve(join(baseDirectory, 'img')) + '/original_' + date + '.' + imgFormat

@@ -189,8 +189,7 @@
 144
 145
 146
-147
-148</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+147</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -305,7 +304,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -369,9 +367,9 @@ var router = _express2.default.Router();
  * @param {function} next
  */
 &nbsp;
-//###################################################################################
+// ###################################################################################
 //                           API VALIDATIONS
-//###################################################################################
+// ###################################################################################
 router.use('/', <span class="fstat-no" title="function not covered" >function (req, res, next) {</span>
   // decode token
 <span class="cstat-no" title="statement not covered" >  var token = req.headers.authorization;</span>
@@ -394,11 +392,11 @@ router.use('/', <span class="fstat-no" title="function not covered" >function (r
   }
 });
 &nbsp;
-//################################################################################
+// ################################################################################
 &nbsp;
 //                          API FOR JSON_PATCHING
 &nbsp;
-//################################################################################
+// ################################################################################
 &nbsp;
 /**
  * Api to apply json patch on json object and Update json
@@ -411,10 +409,10 @@ router.use('/', <span class="fstat-no" title="function not covered" >function (r
 router.post('/patch', <span class="fstat-no" title="function not covered" >function (req, res, next) {</span>
 <span class="cstat-no" title="statement not covered" >  if (typeof req.body.jsonObject === 'undefined') {</span>
 <span class="cstat-no" title="statement not covered" >    res.statusCode = 400;</span>
-<span class="cstat-no" title="statement not covered" >    res.json({ "message": 'missing jsonObject' });</span>
+<span class="cstat-no" title="statement not covered" >    res.json({ 'message': 'missing jsonObject' });</span>
   } else <span class="cstat-no" title="statement not covered" >if (typeof req.body.Patch === 'undefined') {</span>
 <span class="cstat-no" title="statement not covered" >    res.statusCode = 400;</span>
-<span class="cstat-no" title="statement not covered" >    res.json({ "message": 'missing patch operations' });</span>
+<span class="cstat-no" title="statement not covered" >    res.json({ 'message': 'missing patch operations' });</span>
   } else {
 <span class="cstat-no" title="statement not covered" >    var jsonObject = req.body.jsonObject;</span>
 <span class="cstat-no" title="statement not covered" >    var operation = req.body.Patch;</span>
@@ -424,16 +422,16 @@ router.post('/patch', <span class="fstat-no" title="function not covered" >funct
 <span class="cstat-no" title="statement not covered" >      res.json({ patch: patchDocument });</span>
     } catch (e) {
 <span class="cstat-no" title="statement not covered" >      res.statusCode = 400;</span>
-<span class="cstat-no" title="statement not covered" >      res.json({ "message": "wrong patch operations" });</span>
+<span class="cstat-no" title="statement not covered" >      res.json({ 'message': 'wrong patch operations' });</span>
     }
   }
 });
 &nbsp;
-//####################################################################################
+// ####################################################################################
 &nbsp;
 //                    API FOR THUMBNAIL_GENERATIONS
 &nbsp;
-//####################################################################################
+// ####################################################################################
 /**
  * Create thumbnail of image
  * @name Thumbnail-Generation
@@ -452,7 +450,6 @@ router.post('/thumbnail', <span class="fstat-no" title="function not covered" >f
 <span class="cstat-no" title="statement not covered" >        var contentType = response.headers['content-type'].substring(0, 5);</span>
 <span class="cstat-no" title="statement not covered" >        var imgFormat = response.headers['content-type'].substring(6);</span>
 <span class="cstat-no" title="statement not covered" >        var date = response.headers['date'].split(' ').join('_');</span>
-        // console.log(contentType);
 <span class="cstat-no" title="statement not covered" >        if (response.statusCode === 200 &amp;&amp; contentType === 'image') {</span>
 <span class="cstat-no" title="statement not covered" >          if (response.headers['content-length'] &lt;= 10 * 1024 * 1024) {</span>
 <span class="cstat-no" title="statement not covered" >            var originalLocation = (0, _path.resolve)((0, _path.join)(baseDirectory, 'img')) + '/original_' + date + '.' + imgFormat;</span>
@@ -470,17 +467,17 @@ router.post('/thumbnail', <span class="fstat-no" title="function not covered" >f
             });
           } else {
 <span class="cstat-no" title="statement not covered" >            res.status(400);</span>
-<span class="cstat-no" title="statement not covered" >            res.json({ message: "image exceeds than 10 MB" });</span>
+<span class="cstat-no" title="statement not covered" >            res.json({ message: 'image exceeds than 10 MB' });</span>
           }
         } else {
 <span class="cstat-no" title="statement not covered" >          res.status(400);</span>
-<span class="cstat-no" title="statement not covered" >          res.json({ message: "image not found" });</span>
+<span class="cstat-no" title="statement not covered" >          res.json({ message: 'image not found' });</span>
         }
       }
     });
   } else {
 <span class="cstat-no" title="statement not covered" >    res.status(400);</span>
-<span class="cstat-no" title="statement not covered" >    res.json({ message: "url not found" });</span>
+<span class="cstat-no" title="statement not covered" >    res.json({ message: 'url not found' });</span>
   }
 });
 &nbsp;
@@ -490,7 +487,7 @@ module.exports = router;</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Oct 01 2017 11:23:33 GMT+0530 (IST)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Oct 01 2017 22:41:12 GMT+0530 (IST)
 </div>
 </div>
 <script src="../../prettify.js"></script>

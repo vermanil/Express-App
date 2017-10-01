@@ -43,16 +43,16 @@ router.post('/authorize', function (req, res, next) {
     var token = req.headers.authorization;
     (0, _jsonwebtoken.verify)(token, 'anil', function (err, decoded) {
       if (err) {
-        res.status(500);
-        res.send('Invalid signature');
+        res.status(400);
+        res.json({ 'message': 'Invalid signature' });
       } else {
         res.status(200);
         res.json({ 'username': decoded.username, 'password': decoded.password });
       }
     });
   } else {
-    res.status(500);
-    res.send('Headers not found');
+    res.status(400);
+    res.json({ 'message': 'Headers not found' });
   }
   // console.log(req.headers);
   // console.log(req.headers.authorization);

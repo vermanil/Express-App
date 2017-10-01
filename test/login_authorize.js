@@ -44,3 +44,30 @@ describe("User Login", function () {
     })
 });
 
+describe("authorize", function () {
+    it("should return the username and password if correct token is given", function (done) {
+        let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFuaWwiLCJwYXNzd29yZCI6Imhkc2ZkcyIsImlhdCI6MTUwNjgwMTEzMn0.y05aZEHqVdjgU2A6Oi8UuufNGy5IGfjdS2N3Jw0cINI"
+        chai.request(server).post('/authorize').set('Authorization', token).end( function (err, res) {
+          res.should.have.status(200)
+            res.body.should.have.property('username')
+            res.body.should.have.property('password')
+            done()
+        })
+    })
+    it("should return error if token is invalid", function (done) {
+        let invalidToken="eyJhbGciOiJIUzI1NiIsIqR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFuaWwiLCJwYXNzd29yZCI6Imhkc2ZkcyIsImlhdCI6MTUwNjgwMTEzMn0.y05aZEHqVdjgU2A6Oi8UuufNGy5IGfjdS2N3Jw0cINI"
+        chai.request(server).post('/authorize').set('Authorization', invalidToken).end( function (err, res) {
+            res.should.have.status(400)
+            res.body.should.have.property('message')
+            done()
+        })
+    })
+    it("should return error if token is not provided", function (done) {
+        chai.request(server).post('/authorize').end( function (err, res) {
+            res.should.have.status(400)
+            res.body.should.have.property('message')
+            done()
+        })
+    })
+
+})

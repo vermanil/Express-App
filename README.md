@@ -44,7 +44,7 @@ $ npm run lint
 ```
 * Code Coverage
 ```
-$ istanbul cover /dist/test/*.js
+$ istanbul cover ./node_modules/.bin/_mocha --compilers dist/test/*.js
 
 ```
 ### Usage

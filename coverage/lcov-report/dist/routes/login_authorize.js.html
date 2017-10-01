@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">36% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>9/25</span>
+        <span class='fraction'>25/25</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">21.43% </span>
+        <span class="strong">92.86% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>3/14</span>
+        <span class='fraction'>13/14</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">25% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>1/4</span>
+        <span class='fraction'>4/4</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">33.33% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>8/24</span>
+        <span class='fraction'>24/24</span>
       </div>
     </div>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -125,13 +125,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -144,20 +144,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -184,14 +184,14 @@ var router = _express2.default.Router();
  * @return {json} signed JWT token, {token: JWT_TOKEN}
  */
 &nbsp;
-router.post('/login', <span class="fstat-no" title="function not covered" >function (req, res, next) {</span>
-<span class="cstat-no" title="statement not covered" >  if (typeof req.body.username !== 'undefined' &amp;&amp; typeof req.body.password != 'undefined') {</span>
-<span class="cstat-no" title="statement not covered" >    var token = (0, _jsonwebtoken.sign)({ 'username': req.body.username, 'password': req.body.password }, 'anil');</span>
-<span class="cstat-no" title="statement not covered" >    res.status(200);</span>
-<span class="cstat-no" title="statement not covered" >    res.json({ token: token });</span>
+router.post('/login', function (req, res, next) {
+  if (typeof req.body.username !== 'undefined' &amp;&amp; typeof req.body.password !== 'undefined') {
+    var token = (0, _jsonwebtoken.sign)({ 'username': req.body.username, 'password': req.body.password }, 'anil');
+    res.status(200);
+    res.json({ token: token });
   } else {
-<span class="cstat-no" title="statement not covered" >    res.status(400);</span>
-<span class="cstat-no" title="statement not covered" >    res.json({ message: "missing username or password" });</span>
+    res.status(400);
+    res.json({ message: 'missing username or password' });
   }
 });
 &nbsp;
@@ -203,21 +203,21 @@ router.post('/login', <span class="fstat-no" title="function not covered" >funct
  * @param {function} next
  */
 //
-router.post('/authorize', <span class="fstat-no" title="function not covered" >function (req, res, next) {</span>
-<span class="cstat-no" title="statement not covered" >  if (req.headers &amp;&amp; req.headers.authorization) {</span>
-<span class="cstat-no" title="statement not covered" >    var token = req.headers.authorization;</span>
-<span class="cstat-no" title="statement not covered" >    (0, _jsonwebtoken.verify)(token, 'anil', <span class="fstat-no" title="function not covered" >function (err, decoded) {</span></span>
-<span class="cstat-no" title="statement not covered" >      if (err) {</span>
-<span class="cstat-no" title="statement not covered" >        res.status(500);</span>
-<span class="cstat-no" title="statement not covered" >        res.send('Invalid signature');</span>
+router.post('/authorize', function (req, res, next) {
+  if (req.headers &amp;&amp; req.headers.authorization) {
+    var token = req.headers.authorization;
+    (0, _jsonwebtoken.verify)(token, 'anil', function (err, decoded) {
+      if (err) {
+        res.status(400);
+        res.json({ 'message': 'Invalid signature' });
       } else {
-<span class="cstat-no" title="statement not covered" >        res.status(200);</span>
-<span class="cstat-no" title="statement not covered" >        res.json({ 'username': decoded.username, 'password': decoded.password });</span>
+        res.status(200);
+        res.json({ 'username': decoded.username, 'password': decoded.password });
       }
     });
   } else {
-<span class="cstat-no" title="statement not covered" >    res.status(500);</span>
-<span class="cstat-no" title="statement not covered" >    res.send('Headers not found');</span>
+    res.status(400);
+    res.json({ 'message': 'Headers not found' });
   }
   // console.log(req.headers);
   // console.log(req.headers.authorization);
@@ -229,7 +229,7 @@ module.exports = router;</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Oct 01 2017 11:23:33 GMT+0530 (IST)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Oct 01 2017 22:46:30 GMT+0530 (IST)
 </div>
 </div>
 <script src="../../prettify.js"></script>
